@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task2-2</title>
+</head>
+<body>
+    <h1>Task 2</h1>
+    <button onclick="runIsIPAddress()">isIPAddress</button>
+    <pre>
+        function isIPAddress(ip) {
+            let parts = ip.split('.');
+            
+            if (parts.length !== 4) {
+                return false;
+            }
+        
+            for (let i = 0; i < parts.length; i++) {
+                let part = parts[i];
+        
+                if (!/^\d+$/.test(part) || Number(part) < 0 || Number(part) > 255) {
+                    return false;
+                }
+        
+                if (part.length > 1 && part[0] === '0') {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+    </pre>
+    <button onclick="runFindRGBA()">findRGBA</button>
+    <pre>
+        function findRGBA(text) {
+            const rgbaRegex = /rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0?\.\d+)\s*\)/;
+            const match = text.match(rgbaRegex);
+        
+            return match ? match[0] : null;
+        }
+    </pre>
+    <button onclick="runFindHexColor()">findHexColor</button>
+    <pre>
+        function findHexColor(text) {
+            const hashIndex = text.indexOf('#');
+          
+            if (hashIndex === -1) return null;
+          
+            const hex3 = text.slice(hashIndex, hashIndex + 4);
+            const hex6 = text.slice(hashIndex, hashIndex + 7);
+          
+            const isValidHex3 = /^#[0-9A-Fa-f]{3}$/.test(hex3);
+            const isValidHex6 = /^#[0-9A-Fa-f]{6}$/.test(hex6);
+          
+            if (isValidHex3) return hex3;
+            if (isValidHex6) return hex6;
+          
+            return null;
+        }
+    </pre>
+    <button onclick="runFindTags()">findTags</button>
+    <pre>
+        function findTags(text, tag) {
+            const regex = new RegExp(`<${tag}[^>]*>`, 'gi');
+            return text.match(regex) || [];
+        }
+    </pre>
+    <button onclick="runFindPosNum()">findPosNum</button>
+    <pre>
+        function findPosNum(text) {
+            const matches = text.match(/\b\d+(\.\d+)?\b/g) || [];
+            const positiveNumbers = matches.map(Number).filter(num => num > 0);
+            
+            return positiveNumbers;
+        }
+    </pre>
+    <button onclick="runFindDates()">findDates</button>
+    <pre>
+        function findDates(text) {
+            const datePattern = /\b\d{4}-\d{2}-\d{2}\b/g;
+            const matches = text.match(datePattern) || [];
+            
+            return matches;
+        }
+    </pre>
+    <script src="lab2-2.js"></script>
+    <script>
+        function runIsIPAddress() {
+            let ip = prompt("Enter your ip idress:", "");
+
+            console.log(isIPAddress(ip));
+        }
+
+        function runFindRGBA() {
+            let rgbaText = prompt("Enter your text with rgba:", "");
+
+            console.log(findRGBA(rgbaText));
+        }
+
+        function runFindHexColor() {
+            let hexText = prompt("Enter your text with hex:", "");
+
+            console.log(findHexColor(hexText));
+        }
+
+        function runFindTags() {
+            let hexText = prompt("Enter your text with tags:", "");
+            let tag = prompt("Enter your tag to find:", "");
+
+            console.log(findTags(hexText, "img"));
+        }
+
+        function runFindPosNum() {
+            let text = prompt("Enter your text with positive numbers", "");
+
+            console.log(findPosNum(text));
+        }
+
+        function runFindDates() {
+            let text = prompt("Enter your text with dates", "");
+
+            const text2 = "Дати: 2023-05-01, 1999-12-31, та неправильна дата 2023-13-01.";
+            console.log(findDates(text));
+        }
+    </script>
+</body>
+</html>

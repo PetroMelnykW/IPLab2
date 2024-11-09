@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task2-1</title>
+</head>
+<body>
+    <h1>Task 1</h1>
+    <button onclick="runIsInteger()">isInteger</button>
+    <pre>
+        function isInteger(number) {
+            return (number % 1) == 0;
+        }
+    </pre>
+    <button onclick="runfindPrimes()">findPrimes</button>
+    <pre>
+        function findPrimes(start, end) {
+            function isPrime(number) {
+                if (number <= 1) {
+                    return false;
+                }
+            
+                for (let index = 2; (index < (parseInt(Math.sqrt(number)) + 1)); index++) {
+                    if ((number % index) == 0) {
+                        return false;
+                    }
+                }
+            
+                return true;
+            }
+        
+            let array = [];
+        
+            for (let index = start; index <= end; index++) {
+                if (isPrime(index)){
+                    array.push(index);
+                }
+            }
+        
+            return array;
+        }
+    </pre>
+    <script src="lab2-1.js"></script>
+    <script>
+        function runIsInteger() {
+            let inputNumber = parseFloat(prompt("Number:", "0"));
+
+            console.log(isInteger(inputNumber));
+        }
+        
+        function runfindPrimes() {
+            let startNumber = parseInt(prompt("Start number:", "0"));
+            let endNumber = parseInt(prompt("End number:", "0"));
+
+            console.log(findPrimes(startNumber, endNumber));
+        }
+    </script>
+</body>
+</html>
